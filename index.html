@@ -83,10 +83,15 @@
         #modal-content { animation: popIn .3s cubic-bezier(.2,.8,.2,1); }
         @keyframes popIn { from { opacity: 0; transform: scale(.94); } to { opacity: 1; transform: scale(1); } }
 
-        .carrossel-wrap { position: relative; overflow: hidden; border-radius: 0.75rem; touch-action: pan-y; }
+        .carrossel-wrap { position: relative; overflow: hidden; border-radius: 0.75rem; touch-action: pan-y; background: #000; }
         .carrossel-track { display: flex; transition: transform .3s ease; will-change: transform; }
         .carrossel-track.dragging { transition: none; }
-        .carrossel-track img { width: 100%; flex: 0 0 100%; height: 14rem; object-fit: cover; user-select: none; -webkit-user-drag: none; pointer-events: none; }
+        .carrossel-track img { width: 100%; flex: 0 0 100%; height: 22rem; object-fit: contain; background: #000; user-select: none; -webkit-user-drag: none; cursor: zoom-in; }
+        @media (min-width: 640px) { .carrossel-track img { height: 28rem; } }
+
+        #lightbox { backdrop-filter: blur(4px); }
+        #lightbox.hidden { display: none; }
+        #lightbox img { max-width: 94vw; max-height: 90vh; object-fit: contain; }
         .dots { position: absolute; bottom: 10px; left: 0; right: 0; display: flex; justify-content: center; gap: 6px; }
         .dot { width: 6px; height: 6px; border-radius: 999px; background: rgba(255,255,255,0.4); transition: all .2s ease; }
         .dot.active { background: #fff; width: 16px; }
@@ -157,9 +162,14 @@
         <div id="modal-content" class="bg-[#121212] p-8 rounded-2xl max-w-lg w-full border border-white/10 modal-scroll text-sm"></div>
     </div>
 
+    <div id="lightbox" class="hidden fixed inset-0 bg-black/95 z-[60] flex items-center justify-center p-2" onclick="document.getElementById('lightbox').classList.add('hidden')">
+        <img id="lightbox-img" src="" draggable="false">
+    </div>
+
     <div id="view-catalogo" class="view active max-w-2xl mx-auto">
         <header class="text-center mb-10">
             <img src="ln.png" alt="Logo" class="mx-auto h-24 mb-4 drop-shadow-md">
+            <p class="text-gray-500 text-xs tracking-wide mb-4">Impressão 3D personalizada, feita com detalhe 🧡</p>
             <div class="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent w-full"></div>
         </header>
         <nav class="flex justify-between items-center mb-6">
@@ -189,23 +199,102 @@
         </div>
     </div>
 
+    <footer class="max-w-2xl mx-auto mt-14 mb-4">
+        <div class="p-6 md:p-8 bg-[#111111] rounded-2xl border border-white/5 text-center">
+            <img src="ln.png" alt="Logo" class="mx-auto h-10 mb-4 opacity-90">
+            <h2 class="font-bold text-white display text-sm tracking-widest mb-3">SOBRE NÓS</h2>
+            <!-- EDITA ESTE TEXTO com a tua história / apresentação do negócio -->
+            <p class="text-gray-400 text-xs leading-relaxed max-w-md mx-auto mb-6">
+                Somos a In.printing.lab, um pequeno estúdio de impressão 3D dedicado a criar peças personalizadas com carinho e atenção ao detalhe — desde decoração de Natal a acessórios para SimRacing. Cada peça é feita por encomenda, especialmente para ti.
+            </p>
+
+            <div class="flex justify-center gap-4 mb-2">
+                <!-- SUBSTITUI OS # PELOS LINKS REAIS DAS TUAS REDES -->
+                <a href="https://www.instagram.com/ln.printing.lab/" target="_blank" rel="noopener" aria-label="Instagram"
+                    class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition text-white">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <rect x="2.5" y="2.5" width="19" height="19" rx="5"/>
+                        <circle cx="12" cy="12" r="4.3"/>
+                        <circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/>
+                    </svg>
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=100064978247325" target="_blank" rel="noopener" aria-label="Facebook"
+                    class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition text-white">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <path d="M15 4h-2.2C10.7 4 9.5 5.3 9.5 7.4V10H7v3.2h2.5V21h3.3v-7.8H15l.6-3.2h-3.1V7.7c0-.9.5-1.4 1.4-1.4H15V4Z"/>
+                    </svg>
+                </a>
+                <a href="https://wa.me/351215959525" target="_blank" rel="noopener" aria-label="WhatsApp"
+                    class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition text-white">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Z"/>
+                        <path d="M8.5 8.8c.2-.6.5-.6.8-.6h.5c.2 0 .4 0 .6.5.2.5.6 1.5.6 1.6.1.1.1.3 0 .4-.1.2-.2.3-.3.4-.1.1-.3.3-.4.4-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1.2-.2.7-.8.9-1 .2-.2.3-.2.6-.1.2.1 1.5.7 1.8.9.3.1.4.2.5.3.1.2.1.9-.2 1.4-.3.6-1.5 1.2-2.1 1.2-.5 0-1.1.1-3.6-1-3-1.3-4.9-4.4-5-4.6-.1-.2-1.2-1.6-1.2-3.1 0-1.5.8-2.2 1-2.4Z" fill="currentColor" stroke="none"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+        <p class="text-center text-gray-600 text-[11px] mt-4">In.printing.lab © 2026</p>
+    </footer>
+
     <script>
         const produtos = [
-            { id: 1, nome: "Secador de Capacetes #CSC", preco: 95, categoria: "Auto & SimRacing", fotos: ["ssc1.png","ssc2.png","ssc3.png","ssc4.png"], desc: "Secador de capacetes e luvas composto por 3 ventoinhas (uma de 120mm p/ capacete e duas de 60mm p/ luvas). Inclui botão de ligar/desligar e cabo de alimentação. Pode ser personalizada a cor do stand, número e nome. Tempo de entrega: 2 semanas." },
-            { id: 15, nome: "Secador de Capacetes e Luvas", preco: 95, categoria: "Auto & SimRacing", fotos: ["scl1.png", "scl2.png", "scl3.png", "scl4.png", "scl5.png", "scl6.png"], desc: "Secador de capacetes e luvas.<br><br>Composto com 3 ventoinhas, uma de 120mm para secar o capacete e duas de 60mm para secar as luvas.<br>Inclui também um botão para ligar e desligar as ventoinhas e o respetivo cabo de alimentação.<br><br>Pode ser escolhida a cor só stand (pés e base) e pode ser incluída uma personalização, por exemplo com número e nome.<br><br>Valor sem personalização: 85€<br>Valor com personalização: 95€<br><br>Tempo previsto desde a encomenda à entrega: duas semanas." },
-            { id: 2, nome: "Indicador SimRacing (RPM/Bandeiras)", preco: 30, categoria: "Auto & SimRacing", fotos: ["sim1.png","sim2.png","sim3.png","sim4.png"], desc: "Indicador de mudança, bandeiras e rotação (RPM).<br><br><strong>Compatibilidade:</strong> Assetto Corsa e Competizione, iRacing, rFactor 2, Project CARS 1 e 2, Automobilista 1 e 2, F1 Series (2020-24), Dirt Rally 1 e 2.0, Euro Truck/American Truck Sim, RaceRoom, BeamNG.drive, Forza Horizon 4 e 5, Gran Turismo 7, Live for Speed, WRC, KartKraft.<br><br><strong>Detalhes:</strong> Ligação Micro USB. Cores dos LEDs totalmente personalizáveis." },
-            { id: 3, nome: "Bola de Natal - Cão", preco: 2.5, categoria: "Natal", fotos: ["au.png","auau.png"], desc: "Bola de natal em forma de patinha. Disponível versão com asinhas para homenagem. Personalizada com nome. Diâmetro: 8cm. Escolha a cor da fita." },
-            { id: 4, nome: "Bola de Natal - Gato", preco: 2.5, categoria: "Natal", fotos: ["miau.png"], desc: "Bola de natal em forma de cabeça de gatinho. Disponível com asinhas. Personalizada com nome. Diâmetro: 8cm. Escolha a cor da fita." },
-            { id: 5, nome: "Bola de Natal - Melhor Auxiliar", preco: 2.5, categoria: "Natal", fotos: ["aux1.png","aux2.png"], desc: "Bola de natal para mimar os auxiliares. Personalizada com nome. Diâmetro: 8cm. Escolha a cor da fita." },
-            { id: 6, nome: "Bola de Natal - Professor(a)", preco: 2.5, categoria: "Natal", fotos: ["prof1.png","prof2.png"], desc: "Bola de natal para mimar os professores(as). Diâmetro: 8cm. Escolha a cor da fita." },
-            { id: 7, nome: "Bola de Natal - Educador(a)", preco: 2.5, categoria: "Natal", fotos: ["educa1.png","educa2.png"], desc: "Bola de Natal para o mimar os(as) Educadores(as) ! 🤍Escolha também a cor da fita para melhor condizer com a sua árvore de natal!Diametro de 8cm." },
-            { id: 8, nome: "Bola de Natal - Boas Festas", preco: 2.5, categoria: "Natal", fotos: ["festa1.png","festa2.png"], desc: "Bola de Natal para quem não pode passar sem oferecer uma lembrança! 🤍Escolha também a cor da fita para melhor condizer com a sua árvore de natal!Diametro de 8cm." },
-            { id: 9, nome: "Bola com Fotografia", preco: 10, categoria: "Natal", fotos: ["image_47309f.jpg"], desc: "Bola personalizada com fotografia à sua escolha. Iluminada através das luzes da sua árvore de Natal." },
-            { id: 10, nome: "Caixa de Memórias", preco: 35, categoria: "Decoração & Presentes", fotos: ["image_473119.png"], desc: "Caixa de memórias que leva até 3 fotografias. É possível escolher a cor da armação." },
-            { id: 11, nome: "Nome Infinito", preco: 15, categoria: "Decoração & Presentes", fotos: ["image_473823.jpg"], desc: "Peça decorativa personalizável com nomes. Várias cores disponíveis." },
-            { id: 12, nome: "Base Monstera", preco: 10, categoria: "Decoração & Presentes", fotos: ["image_473883.png"], desc: "Conjunto composto por 4 folhas de monstera com base. Dimensão folha: 8cm x 10cm x 0,4cm. Dimensão base: 8,5cm x 10,5cm x 2,2cm." },
-            { id: 13, nome: "Vaso Caveira", preco: 12, categoria: "Decoração & Presentes", fotos: ["image_474389.png"], desc: "Vaso decorativo para plantas ou para guardar chaves. Disponível em várias cores." },
-            { id: 14, nome: "Luminária NameLed", preco: 30, categoria: "Decoração & Presentes", fotos: ["image_4743c6.jpg"], desc: "Luminária personalizada com iluminação LED controlável com comando remoto. Permite até quatro cores diferentes. Dimensão máxima: 25cm x 25cm." }
+            { id: 1, nome: "Secador de Capacetes #CSC", preco: 95, categoria: "Auto & SimRacing", fotos: ["Secador de Capacetes %23CSC/ssc1.png", "Secador de Capacetes %23CSC/ssc2.png", "Secador de Capacetes %23CSC/ssc3.png", "Secador de Capacetes %23CSC/ssc4.png"], desc: "Secador de capacetes e luvas<br><br>Composto com 3 ventoinhas, uma de 120mm para secar o capacete e duas de 60mm para secar as luvas.<br>Inclui também um botão para ligar e desligar as ventoinhas e o respetivo cabo de alimentação.<br><br>Pode ser escolhida a cor só stand (pés e base) e pode ser incluída uma personalização, por exemplo com número e nome.<br><br>Valor sem personalização: 85€<br>Valor com personalização: 95€<br><br>Tempo previsto desde a encomenda à entrega: duas semanas.", campos: [
+                { id: "cor_stand", label: "Cor do stand (pés e base)", tipo: "texto", placeholder: "ex: preto" },
+                { id: "personalizacao", label: "Personalização (nome e/ou número)", tipo: "texto", placeholder: "ex: João, nº 7" }
+            ] },
+            { id: 15, nome: "Secador de Capacete e Luvas", preco: 95, categoria: "Auto & SimRacing", fotos: ["Secador de Capacete e Luvas/scl1.png", "Secador de Capacete e Luvas/scl2.png", "Secador de Capacete e Luvas/scl3.png", "Secador de Capacete e Luvas/scl4.png", "Secador de Capacete e Luvas/scl5.png", "Secador de Capacete e Luvas/scl6.png"], desc: "Secador de capacetes e luvas.<br><br>Composto com 3 ventoinhas, uma de 120mm para secar o capacete e duas de 60mm para secar as luvas.<br>Inclui também um botão para ligar e desligar as ventoinhas e o respetivo cabo de alimentação.<br><br>Pode ser escolhida a cor só stand (pés e base) e pode ser incluída uma personalização, por exemplo com número e nome.<br><br>Valor sem personalização: 85€<br>Valor com personalização: 95€<br><br>Tempo previsto desde a encomenda à entrega: duas semanas.", campos: [
+                { id: "cor_stand", label: "Cor do stand (pés e base)", tipo: "texto", placeholder: "ex: preto" },
+                { id: "personalizacao", label: "Personalização (nome e/ou número)", tipo: "texto", placeholder: "ex: João, nº 7" }
+            ] },
+            { id: 2, nome: "Indicador de mudança/bandeiras/rpm Simracig", preco: 30, precoAntigo: 50, categoria: "Auto & SimRacing", fotos: ["Indicador de mudança bandeiras rpm Simracig/sim1.png", "Indicador de mudança bandeiras rpm Simracig/sim2.png", "Indicador de mudança bandeiras rpm Simracig/sim3.png", "Indicador de mudança bandeiras rpm Simracig/sim4.png"], desc: "Indicador de mudança, bandeiras e rotação, entre outros efeitos (dependendo do jogo)<br>Compatível com a maioria dos jogos de corridas e simulação.<br>Ligação via micro usb.<br>Cores dos leds totalmente personalizáveis.<br><br><strong>Lista de alguns jogos compatíveis:</strong><br>Assetto Corsa e Assetto Corsa Competizione, iRacing, rFactor 2, Project CARS e Project CARS 2, Automobilista e Automobilista 2, F1 Series (da Codemasters, incluindo F1 2020, F1 2021, F1 22, F1 23, F1 24), Dirt Rally e Dirt Rally 2.0, Euro Truck Simulator 2 e American Truck Simulator, RaceRoom Racing Experience, BeamNG.drive, Forza Horizon 4 e Forza Horizon 5, Gran Turismo 7 (com suporte parcial via telemetria de rede), Live for Speed, WRC Series, KartKraft.", campos: [
+                { id: "cor_leds", label: "Cores dos LEDs", tipo: "texto", placeholder: "ex: vermelho e branco" }
+            ] },
+            { id: 3, nome: "Bola de Natal - Cão", preco: 2.5, categoria: "Natal", fotos: ["Bola de Natal - Cão/au.png", "Bola de Natal - Cão/auau.png"], desc: "Bola de Natal em forma de patinha.<br>Também disponível versão com asinhas para homenagear os nossos amigos 🤍<br>Personalizada com um nome à escolha.<br>Escolha também a cor da fita para melhor condizer com a sua árvore de natal!<br>Diametro de 8cm.", campos: [
+                { id: "nome", label: "Nome a incluir", tipo: "texto", obrigatorio: true, placeholder: "ex: Rex" },
+                { id: "cor_fita", label: "Cor da fita", tipo: "texto", placeholder: "ex: vermelho" },
+                { id: "asinhas", label: "Versão com asinhas (homenagem)", tipo: "checkbox" }
+            ] },
+            { id: 4, nome: "Bola de Natal - Gato", preco: 2.5, categoria: "Natal", fotos: ["Bola de Natal - Gato/miau.png"], desc: "Bola de Natal em forma de cabeça de Gatinho.<br>Também disponível versão com asinhas para homenagear os nossos amigos 🤍<br>Personalizada com um nome à escolha.<br>Escolha também a cor da fita para melhor condizer com a sua árvore de natal!<br>Diametro de 8cm.", campos: [
+                { id: "nome", label: "Nome a incluir", tipo: "texto", obrigatorio: true, placeholder: "ex: Mimi" },
+                { id: "cor_fita", label: "Cor da fita", tipo: "texto", placeholder: "ex: dourado" },
+                { id: "asinhas", label: "Versão com asinhas (homenagem)", tipo: "checkbox" }
+            ] },
+            { id: 5, nome: "Bola de Natal - Melhor Auxiliar", preco: 2.5, categoria: "Natal", fotos: ["Bola de Natal - Melhor Auxiliar/aux1.png", "Bola de Natal - Melhor Auxiliar/aux2.png"], desc: "Bola de Natal para o mimar os Auxiliares! 🤍<br>Escolha também a cor da fita para melhor condizer com a sua árvore de natal!<br>Diametro de 8cm.", campos: [
+                { id: "cor_fita", label: "Cor da fita", tipo: "texto", placeholder: "ex: verde" }
+            ] },
+            { id: 6, nome: "Bola de Natal - Melhor Professor(a)", preco: 2.5, categoria: "Natal", fotos: ["Bola de Natal - Melhor Professor(a)/prof1.png", "Bola de Natal - Melhor Professor(a)/prof2.png"], desc: "Bola de Natal para o mimar os Professores(as)! 🤍<br>Escolha também a cor da fita para melhor condizer com a sua árvore de natal!<br>Diametro de 8cm.", campos: [
+                { id: "cor_fita", label: "Cor da fita", tipo: "texto", placeholder: "ex: dourado" }
+            ] },
+            { id: 7, nome: "Bola de Natal - Melhor Educador(a)", preco: 2.5, categoria: "Natal", fotos: ["Bola de Natal - Melhor Educador(a)/educa1.png", "Bola de Natal - Melhor Educador(a)/educa2.png"], desc: "Bola de Natal para o mimar os Educadores(as)! 🤍<br>Escolha também a cor da fita para melhor condizer com a sua árvore de natal!<br>Diametro de 8cm.", campos: [
+                { id: "cor_fita", label: "Cor da fita", tipo: "texto", placeholder: "ex: vermelho" }
+            ] },
+            { id: 8, nome: "Bola Feliz Natal / Boas Festas", preco: 2.5, categoria: "Natal", fotos: ["Bola Feliz Natal  Boas Festas/festa1.png", "Bola Feliz Natal  Boas Festas/festa2.png"], desc: "Bola de Natal para quem não pode passar sem oferecer uma lembrança! 🤍<br>Escolha também a cor da fita para melhor condizer com a sua árvore de natal!<br>Diametro de 8cm.", campos: [
+                { id: "cor_fita", label: "Cor da fita", tipo: "texto", placeholder: "ex: prateado" }
+            ] },
+            { id: 16, nome: "Bola de Natal Personalizada", preco: 2.5, categoria: "Natal", fotos: ["Bola de Natal Personalizada/personal.png"], desc: "Bola de Natal personalizada.<br><br>Também disponível versão com asinhas para homenagear os entes queridos 🤍<br><br>Personalizada com um nome à escolha.<br>Escolha também a cor da fita para melhor condizer com a sua árvore de natal!<br><br>Diametro de 8cm.", campos: [
+                { id: "nome", label: "Nome a incluir", tipo: "texto", obrigatorio: true },
+                { id: "cor_fita", label: "Cor da fita", tipo: "texto", placeholder: "ex: vermelho" },
+                { id: "asinhas", label: "Versão com asinhas (homenagem)", tipo: "checkbox" }
+            ] },
+            { id: 9, nome: "Bola com Fotografia", preco: 10, categoria: "Natal", fotos: ["Bola com Fotografia/ft1.png", "Bola com Fotografia/ft2.png", "Bola com Fotografia/ft3.png"], desc: "Bola personalizada com uma fotografia à sua escolha.<br>Iluminada através das luzes da sua árvore de Natal. 🤍", campos: [
+                { id: "foto", label: "Fotografia a usar", tipo: "texto", obrigatorio: true, placeholder: "vou enviar a foto por WhatsApp" }
+            ] },
+            { id: 10, nome: "Caixa de Memórias", preco: 35, categoria: "Decoração & Presentes", fotos: ["Caixa de memórias/1.png", "Caixa de memórias/2.png"], desc: "Esta caixinha leva até 3 fotografias e é possível escolher a cor da armação.", campos: [
+                { id: "cor_armacao", label: "Cor da armação", tipo: "texto", placeholder: "ex: castanho" },
+                { id: "fotos", label: "Fotografias a usar (até 3)", tipo: "texto", obrigatorio: true, placeholder: "vou enviar as fotos por WhatsApp" }
+            ] },
+            { id: 11, nome: "Nome Infinito", preco: 15, categoria: "Decoração & Presentes", fotos: ["Nome infinito/nome_infinito.png"], desc: "Peça decorativa personalizável com nomes. Mais cores disponíveis.", campos: [
+                { id: "nome", label: "Nome a incluir", tipo: "texto", obrigatorio: true },
+                { id: "cor", label: "Cor", tipo: "texto", placeholder: "ex: rosa" }
+            ] },
+            { id: 12, nome: "Base copos/velas monsteras", preco: 10, categoria: "Decoração & Presentes", fotos: ["Base coposvelas monsteras/base.png"], desc: "Para as amantes de verdinhas temos as bases de copos/velas. Cada conjunto é composto por 4 folhas de monstera já com a sua base.<br>Dimensão folha: 8cm x 10cm x 0,4cm<br>Dimensão base: 8,5cm x 10,5cm x 2,2cm" },
+            { id: 13, nome: "Caveiras vaso", preco: 12, categoria: "Decoração & Presentes", fotos: ["Caveiras vaso/cav1.png", "Caveiras vaso/cav2.png"], desc: "Seja para colocar uma planta ou para colocar aquelas chaves marotas que andam sempre em cima do aparador lá de casa, as nossas caveiras são o must have 😛<br>Disponível em várias cores.", campos: [
+                { id: "cor", label: "Cor", tipo: "texto", placeholder: "ex: branco" }
+            ] },
+            { id: 14, nome: "NameLed", preco: 30, categoria: "Decoração & Presentes", fotos: ["NameLed/nl1.png", "NameLed/nl2.png"], desc: "Luminaria personalizada, com iluminação led permitindo vários efeitos, controlável com comando remoto.<br>Pode ser feito com até quatro cores diferentes, com uma dimensão máxima de 25cm de altura por 25cm de comprimento.", campos: [
+                { id: "nome", label: "Nome a incluir", tipo: "texto", obrigatorio: true },
+                { id: "cores", label: "Cores (até 4)", tipo: "texto", placeholder: "ex: azul, rosa, branco, roxo" }
+            ] }
         ];
 
         let carrinho = [];
@@ -244,25 +333,25 @@
 
             grid.innerHTML = filtrados.map(p => `
                 <div class="card-produto flex items-center gap-4 bg-[#111111] p-4 rounded-xl border border-white/5">
-                    <div class="w-16 h-16 rounded-lg overflow-hidden shrink-0">
+                    <div class="w-24 h-24 rounded-lg overflow-hidden shrink-0 bg-black">
                         <img src="${p.fotos[0]}" class="w-full h-full object-cover">
                     </div>
                     <div class="flex-grow min-w-0">
                         <h3 class="font-bold text-sm text-white truncate">${p.nome}</h3>
-                        <p class="text-orange-500 font-bold text-xs">${p.preco.toFixed(2)}€</p>
+                        <p class="text-orange-500 font-bold text-xs">${p.precoAntigo ? `<span class="text-gray-500 line-through mr-1">${p.precoAntigo.toFixed(2)}€</span>` : ''}${p.preco.toFixed(2)}€</p>
                     </div>
                     <button onclick="abrirDescricao(${p.id})" class="shrink-0 text-[10px] bg-white/5 px-4 py-2 rounded-lg border border-white/10 hover:bg-white hover:text-black transition">DETALHES</button>
                 </div>
             `).join('');
         }
 
-        let carrosselState = { fotos: [], index: 0, startX: 0, deltaX: 0, dragging: false };
+        let carrosselState = { fotos: [], index: 0, startX: 0, deltaX: 0, dragging: false, arrastou: false };
 
         function abrirDescricao(id) {
             const p = produtos.find(prod => prod.id === id);
             const modal = document.getElementById('modal');
 
-            carrosselState = { fotos: p.fotos, index: 0, startX: 0, deltaX: 0, dragging: false };
+            carrosselState = { fotos: p.fotos, index: 0, startX: 0, deltaX: 0, dragging: false, arrastou: false };
 
             modal.classList.remove('hidden');
             document.getElementById('modal-content').innerHTML = `
@@ -272,7 +361,7 @@
 
                 <div class="carrossel-wrap mb-6" id="carrossel-wrap">
                     <div class="carrossel-track" id="carrossel-track">
-                        ${p.fotos.map(f => `<img src="${f}" draggable="false">`).join('')}
+                        ${p.fotos.map(f => `<img src="${f}" draggable="false" onclick="abrirLightbox(this.src)">`).join('')}
                     </div>
                     ${p.fotos.length > 1 ? `
                         <button onclick="mudarFotoModal(-1)" class="carrossel-arrow" style="left:8px;">❮</button>
@@ -282,11 +371,85 @@
                 </div>
 
                 <h3 class="text-xl font-bold mb-2 text-white display">${p.nome}</h3>
+                <p class="text-orange-500 font-bold text-sm mb-3">${p.precoAntigo ? `<span class="text-gray-500 line-through mr-2">${p.precoAntigo.toFixed(2)}€</span>` : ''}${p.preco.toFixed(2)}€</p>
                 <p class="text-gray-400 text-sm mb-6 leading-relaxed">${p.desc}</p>
-                <button onclick="adicionar(${p.id}); document.getElementById('modal').classList.add('hidden')" class="w-full bg-white text-black py-4 rounded-xl font-bold hover:bg-gray-200 transition">ADICIONAR AO CARRINHO</button>
+                <button onclick="abrirPersonalizacao(${p.id})" class="w-full bg-white text-black py-4 rounded-xl font-bold hover:bg-gray-200 transition">ADICIONAR AO CARRINHO</button>
             `;
 
             if (p.fotos.length > 1) ativarSwipe();
+        }
+
+        function renderizarCampos(produto) {
+            if (!produto.campos || produto.campos.length === 0) return '';
+            return produto.campos.map(c => {
+                if (c.tipo === 'checkbox') {
+                    return `<label class="flex items-center gap-2 text-sm text-gray-300 mb-4 cursor-pointer">
+                        <input type="checkbox" id="campo-${c.id}" class="w-4 h-4 accent-orange-500">
+                        ${c.label}
+                    </label>`;
+                }
+                return `<div class="mb-4">
+                    <label class="block text-xs font-bold text-gray-400 mb-1 tracking-wide">${c.label}${c.obrigatorio ? ' *' : ''}</label>
+                    <input type="text" id="campo-${c.id}" placeholder="${c.placeholder || ''}" class="w-full p-3 bg-[#0a0a0a] border border-white/10 rounded-lg text-white text-sm">
+                </div>`;
+            }).join('');
+        }
+
+        function abrirPersonalizacao(id) {
+            const p = produtos.find(prod => prod.id === id);
+            document.getElementById('modal-content').innerHTML = `
+                <div class="flex justify-between items-center mb-5">
+                    <button onclick="abrirDescricao(${id})" class="text-gray-400 text-xs font-bold hover:text-white transition">← VOLTAR</button>
+                    <button onclick="document.getElementById('modal').classList.add('hidden')" class="text-white font-bold text-xl p-2 -mr-2">X</button>
+                </div>
+
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-14 h-14 rounded-lg overflow-hidden shrink-0 bg-black"><img src="${p.fotos[0]}" class="w-full h-full object-cover"></div>
+                    <div>
+                        <h3 class="font-bold text-white leading-tight">${p.nome}</h3>
+                        <p class="text-orange-500 font-bold text-xs">${p.preco.toFixed(2)}€</p>
+                    </div>
+                </div>
+
+                ${p.campos && p.campos.length ? `
+                    <p class="text-xs text-gray-500 mb-4">Preenche os detalhes da tua personalização:</p>
+                    <div id="campos-form">${renderizarCampos(p)}</div>
+                ` : `<p class="text-gray-400 text-sm mb-6">Este produto não tem opções de personalização — é só adicionar! 🎉</p>`}
+
+                <button onclick="confirmarAdicionar(${id})" class="w-full bg-white text-black py-4 rounded-xl font-bold hover:bg-gray-200 transition">CONFIRMAR E ADICIONAR</button>
+            `;
+        }
+
+        function confirmarAdicionar(id) {
+            const p = produtos.find(prod => prod.id === id);
+            const detalhes = [];
+            let valido = true;
+
+            (p.campos || []).forEach(c => {
+                const el = document.getElementById(`campo-${c.id}`);
+                if (!el) return;
+                if (c.tipo === 'checkbox') {
+                    if (el.checked) detalhes.push(c.label);
+                } else {
+                    const val = el.value.trim();
+                    el.classList.remove('border-red-500');
+                    if (c.obrigatorio && !val) { valido = false; el.classList.add('border-red-500'); }
+                    else if (val) detalhes.push(`${c.label}: ${val}`);
+                }
+            });
+
+            if (!valido) { alert('Por favor preenche os campos obrigatórios (*) antes de continuar.'); return; }
+
+            carrinho.push({ ...p, obs: detalhes.length ? detalhes.join(' • ') : 'Sem personalização' });
+            document.getElementById('count').innerText = carrinho.length;
+            atualizarCarrinho();
+            document.getElementById('modal').classList.add('hidden');
+        }
+
+        function abrirLightbox(src) {
+            if (carrosselState.arrastou) { carrosselState.arrastou = false; return; }
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox').classList.remove('hidden');
         }
 
         function atualizarCarrossel(comTransicao = true) {
@@ -313,6 +476,7 @@
             const onMove = (x) => {
                 if (!carrosselState.dragging) return;
                 carrosselState.deltaX = x - carrosselState.startX;
+                if (Math.abs(carrosselState.deltaX) > 6) carrosselState.arrastou = true;
                 atualizarCarrossel(false);
             };
             const onEnd = () => {
@@ -333,29 +497,47 @@
             window.addEventListener('mouseup', onEnd);
         }
 
-        function adicionar(id) {
-            const prod = produtos.find(p => p.id === id);
-            const obs = prompt(`Personalização para "${prod.nome}" (Nome/Cores/Detalhes):`);
-            if (obs !== null) { carrinho.push({ ...prod, obs }); document.getElementById('count').innerText = carrinho.length; atualizarCarrinho(); }
-        }
-
         function atualizarCarrinho() {
             let total = carrinho.reduce((sum, i) => sum + i.preco, 0);
             document.getElementById('total-final').innerText = total.toFixed(2) + "€";
-            document.getElementById('lista-carrinho').innerHTML = carrinho.map((i, index) => `
-                <div class="flex justify-between items-center text-sm border-b border-white/5 pb-3">
-                    <div><p class="font-bold text-white">${i.nome}</p><p class="text-orange-500">${i.obs}</p></div>
-                    <div class="text-right font-bold">${i.preco.toFixed(2)}€ <button onclick="carrinho.splice(${index},1); atualizarCarrinho();" class="text-gray-600 ml-3">X</button></div>
+            document.getElementById('lista-carrinho').innerHTML = carrinho.length ? carrinho.map((i, index) => `
+                <div class="flex justify-between items-start text-sm border-b border-white/5 pb-3">
+                    <div class="pr-3">
+                        <p class="font-bold text-white">${i.nome}</p>
+                        <p class="text-orange-500 text-xs mt-1 leading-relaxed">${i.obs}</p>
+                    </div>
+                    <div class="text-right font-bold shrink-0">${i.preco.toFixed(2)}€ <button onclick="carrinho.splice(${index},1); atualizarCarrinho();" class="text-gray-600 ml-3">X</button></div>
                 </div>
-            `).join('');
+            `).join('') : `<p class="text-gray-500 text-sm text-center py-6">O teu carrinho está vazio.</p>`;
         }
 
         function finalizarPedido() {
-            const n = document.getElementById('nomeCliente').value;
-            if(!n) { alert("Nome obrigatório!"); return; }
-            let msg = `Olá! Encomenda de ${n}:%0A`;
-            carrinho.forEach(i => msg += `- ${i.nome} (${i.obs}) - ${i.preco.toFixed(2)}€%0A`);
-            window.open(`https://wa.me/351215959525?text=${msg}%0ATOTAL: ${document.getElementById('total-final').innerText}`, '_blank');
+            const n = document.getElementById('nomeCliente').value.trim();
+            if (!n) { alert("Por favor indica o teu nome!"); return; }
+            if (carrinho.length === 0) { alert("O teu carrinho está vazio."); return; }
+
+            const total = carrinho.reduce((sum, i) => sum + i.preco, 0);
+
+            let linhas = [];
+            linhas.push(`Olá! 👋 Gostaria de fazer a seguinte encomenda:`);
+            linhas.push(``);
+            linhas.push(`🛒 *Pedido de ${n}*`);
+            linhas.push(``);
+
+            carrinho.forEach((i, idx) => {
+                linhas.push(`${idx + 1}. *${i.nome}* — ${i.preco.toFixed(2)}€`);
+                if (i.obs && i.obs !== 'Sem personalização') {
+                    i.obs.split(' • ').forEach(d => linhas.push(`   • ${d}`));
+                }
+                linhas.push(``);
+            });
+
+            linhas.push(`💰 *TOTAL: ${total.toFixed(2)}€*`);
+            linhas.push(``);
+            linhas.push(`Aguardo confirmação, obrigado/a! 🙏`);
+
+            const msg = encodeURIComponent(linhas.join('\n'));
+            window.open(`https://wa.me/351215959525?text=${msg}`, '_blank');
         }
 
         renderizarCategorias();
