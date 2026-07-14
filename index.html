@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>In.printing.lab | Catálogo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #050505; color: #e5e5e5; font-family: sans-serif; }
+        .view { display: none; }
+        .view.active { display: block; }
+        .modal-scroll { max-height: 80vh; overflow-y: auto; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <!-- Modal Descrição -->
+    <div id="modal" class="hidden fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">
+        <div id="modal-content" class="bg-[#121212] p-8 rounded-2xl max-w-lg w-full border border-white/10 modal-scroll text-sm"></div>
+    </div>
+
+    <!-- Catálogo View -->
+    <div id="view-catalogo" class="view active max-w-2xl mx-auto">
+        <header class="text-center mb-10">
+            <img src="ln.png" alt="Logo" class="mx-auto h-24 mb-4 drop-shadow-md">
+            <div class="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent w-full"></div>
+        </header>
+        <nav class="flex justify-between items-center mb-8">
+            <h1 class="font-bold tracking-widest text-lg text-white">CATÁLOGO</h1>
+            <button onclick="mudarVista('view-carrinho')" class="bg-white text-black px-6 py-2 font-bold rounded-full text-xs hover:bg-gray-200 transition">CARRINHO (<span id="count">0</span>)</button>
+        </nav>
+        <div id="grid-produtos" class="flex flex-col gap-4"></div>
+    </div>
+
+    <!-- Carrinho View -->
+    <div id="view-carrinho" class="view max-w-2xl mx-auto">
+        <button onclick="mudarVista('view-catalogo')" class="text-gray-400 mb-6 font-bold hover:text-white transition">← VOLTAR À LOJA</button>
+        <div class="p-8 bg-[#121212] rounded-2xl border border-white/10">
+            <h2 class="text-2xl font-bold mb-6 text-white">O TEU PEDIDO</h2>
+            <div id="lista-carrinho" class="space-y-4 mb-6"></div>
+            <div class="border-t border-white/10 pt-4 font-bold text-xl mb-6 text-orange-500">TOTAL: <span id="total-final">0,00€</span></div>
+            <input type="text" id="nomeCliente" placeholder="Teu Nome" class="w-full p-4 bg-[#0a0a0a] border border-white/10 rounded-xl mb-4 text-white">
+            <button onclick="finalizarPedido()" class="w-full bg-white text-black py-4 font-bold rounded-xl hover:bg-gray-200 transition">ENVIAR VIA WHATSAPP</button>
+        </div>
+    </div>
+
+    <script>
+        const produtos = [
+            { id: 1, nome: "Secador de Capacetes #CSC", preco: 95, fotos: ["image_472199.jpg"], desc: "Secador de capacetes e luvas composto por 3 ventoinhas (uma de 120mm p/ capacete e duas de 60mm p/ luvas). Inclui botão de ligar/desligar e cabo de alimentação. Pode ser personalizada a cor do stand, número e nome. Tempo de entrega: 2 semanas." },
+            { id: 2, nome: "Indicador SimRacing (RPM/Bandeiras)", preco: 30, fotos: ["image_4734bb.jpg"], desc: "Indicador de mudança, bandeiras e rotação (RPM).<br><br><strong>Compatibilidade:</strong> Assetto Corsa e Competizione, iRacing, rFactor 2, Project CARS 1 e 2, Automobilista 1 e 2, F1 Series (2020-24), Dirt Rally 1 e 2.0, Euro Truck/American Truck Sim, RaceRoom, BeamNG.drive, Forza Horizon 4 e 5, Gran Turismo 7, Live for Speed, WRC, KartKraft.<br><br><strong>Detalhes:</strong> Ligação Micro USB. Cores dos LEDs totalmente personalizáveis." },
+            { id: 3, nome: "Bola de Natal - Cão", preco: 2.5, fotos: ["image_472ce3.jpg"], desc: "Bola de natal em forma de patinha. Disponível versão com asinhas para homenagem. Personalizada com nome. Diâmetro: 8cm. Escolha a cor da fita." },
+            { id: 4, nome: "Bola de Natal - Gato", preco: 2.5, fotos: ["image_473159.jpg"], desc: "Bola de natal em forma de cabeça de gatinho. Disponível com asinhas. Personalizada com nome. Diâmetro: 8cm. Escolha a cor da fita." },
+            { id: 5, nome: "Bola de Natal - Melhor Auxiliar", preco: 2.5, fotos: ["image_47317c.jpg"], desc: "Bola de natal para mimar os auxiliares. Personalizada com nome. Diâmetro: 8cm. Escolha a cor da fita." },
+            { id: 6, nome: "Bola de Natal - Professor(a)", preco: 2.5, fotos: ["image_473461.jpg"], desc: "Bola de natal para mimar os professores(as). Diâmetro: 8cm. Escolha a cor da fita." },
+            { id: 7, nome: "Bola de Natal - Educador(a)", preco: 2.5, fotos: ["image_473c42.jpg"], desc: "Bola de natal para mimar os educadores(as). Diâmetro: 8cm. Escolha a cor da fita." },
+            { id: 8, nome: "Bola de Natal - Boas Festas", preco: 2.5, fotos: ["image_473c83.jpg"], desc: "Bola de natal personalizada, disponível versão com asinhas. Diâmetro: 8cm. Escolha a cor da fita." },
+            { id: 9, nome: "Bola com Fotografia", preco: 10, fotos: ["image_47309f.jpg"], desc: "Bola personalizada com fotografia à sua escolha. Iluminada através das luzes da sua árvore de Natal." },
+            { id: 10, nome: "Caixa de Memórias", preco: 35, fotos: ["image_473119.png"], desc: "Caixa de memórias que leva até 3 fotografias. É possível escolher a cor da armação." },
+            { id: 11, nome: "Nome Infinito", preco: 15, fotos: ["image_473823.jpg"], desc: "Peça decorativa personalizável com nomes. Várias cores disponíveis." },
+            { id: 12, nome: "Base Monstera", preco: 10, fotos: ["image_473883.png"], desc: "Conjunto composto por 4 folhas de monstera com base. Dimensão folha: 8cm x 10cm x 0,4cm. Dimensão base: 8,5cm x 10,5cm x 2,2cm." },
+            { id: 13, nome: "Vaso Caveira", preco: 12, fotos: ["image_474389.png"], desc: "Vaso decorativo para plantas ou para guardar chaves. Disponível em várias cores." },
+            { id: 14, nome: "Luminária NameLed", preco: 30, fotos: ["image_4743c6.jpg"], desc: "Luminária personalizada com iluminação LED controlável com comando remoto. Permite até quatro cores diferentes. Dimensão máxima: 25cm x 25cm." }
+        ];
+
+        let carrinho = [];
+
+        function mudarVista(id) { document.querySelectorAll('.view').forEach(v => v.classList.remove('active')); document.getElementById(id).classList.add('active'); }
+        
+        // Substitui a tua função abrirDescricao atual por esta versão corrigida:
+function abrirDescricao(id) {
+    const p = produtos.find(prod => prod.id === id);
+    const modal = document.getElementById('modal');
+    
+    modal.classList.remove('hidden');
+    document.getElementById('modal-content').innerHTML = `
+        <div class="flex justify-end">
+            <button onclick="document.getElementById('modal').classList.add('hidden')" class="text-white font-bold text-xl p-2">X</button>
+        </div>
+        
+        <!-- Área da Galeria -->
+        <div class="relative mb-6">
+            <img id="modal-img" src="${p.fotos[0]}" data-index="0" class="w-full h-56 object-cover rounded-xl">
+            ${p.fotos.length > 1 ? `
+                <button onclick="mudarFotoModal(${id}, -1)" class="absolute left-2 top-24 bg-black/60 p-2 text-white">❮</button>
+                <button onclick="mudarFotoModal(${id}, 1)" class="absolute right-2 top-24 bg-black/60 p-2 text-white">❯</button>
+            ` : ''}
+        </div>
+
+        <h3 class="text-xl font-bold mb-2 text-white">${p.nome}</h3>
+        <p class="text-gray-400 text-sm mb-6 leading-relaxed">${p.desc}</p>
+        <button onclick="adicionar(${p.id}); document.getElementById('modal').classList.add('hidden')" class="w-full bg-white text-black py-4 rounded-xl font-bold hover:bg-gray-200 transition">ADICIONAR AO CARRINHO</button>
+    `;
+}
+// Nova função específica para mudar a foto dentro do modal
+function mudarFotoModal(id, direcao) {
+    const p = produtos.find(prod => prod.id === id);
+    const img = document.getElementById('modal-img');
+    let index = parseInt(img.dataset.index);
+    
+    index = (index + direcao + p.fotos.length) % p.fotos.length;
+    img.src = p.fotos[index];
+    img.dataset.index = index;
+}
+
+        function adicionar(id) {
+            const prod = produtos.find(p => p.id === id);
+            const obs = prompt(`Personalização para "${prod.nome}" (Nome/Cores/Detalhes):`);
+            if (obs !== null) { carrinho.push({ ...prod, obs }); document.getElementById('count').innerText = carrinho.length; atualizarCarrinho(); }
+        }
+
+        function atualizarCarrinho() {
+            let total = carrinho.reduce((sum, i) => sum + i.preco, 0);
+            document.getElementById('total-final').innerText = total.toFixed(2) + "€";
+            document.getElementById('lista-carrinho').innerHTML = carrinho.map((i, index) => `
+                <div class="flex justify-between items-center text-sm border-b border-white/5 pb-3">
+                    <div><p class="font-bold text-white">${i.nome}</p><p class="text-orange-500">${i.obs}</p></div>
+                    <div class="text-right font-bold">${i.preco.toFixed(2)}€ <button onclick="carrinho.splice(${index},1); atualizarCarrinho();" class="text-gray-600 ml-3">X</button></div>
+                </div>
+            `).join('');
+        }
+
+        function finalizarPedido() {
+            const n = document.getElementById('nomeCliente').value;
+            if(!n) { alert("Nome obrigatório!"); return; }
+            let msg = `Olá! Encomenda de ${n}:%0A`;
+            carrinho.forEach(i => msg += `- ${i.nome} (${i.obs}) - ${i.preco.toFixed(2)}€%0A`);
+            window.open(`https://wa.me/351215959525?text=${msg}%0ATOTAL: ${document.getElementById('total-final').innerText}`, '_blank');
+        }
+
+        const grid = document.getElementById('grid-produtos');
+        produtos.forEach(p => {
+            grid.innerHTML += `
+                <div class="flex items-center gap-4 bg-[#111111] p-4 rounded-xl border border-white/5 hover:border-white/10 transition">
+                    <img src="${p.fotos[0]}" class="w-16 h-16 object-cover rounded-lg">
+                    <div class="flex-grow">
+                        <h3 class="font-bold text-sm text-white">${p.nome}</h3>
+                        <p class="text-orange-500 font-bold text-xs">${p.preco.toFixed(2)}€</p>
+                    </div>
+                    <button onclick="abrirDescricao(${p.id})" class="text-[10px] bg-white/5 px-4 py-2 rounded-lg border border-white/10 hover:bg-white hover:text-black transition">DETALHES</button>
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>
