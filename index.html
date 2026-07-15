@@ -191,22 +191,22 @@
 
     <script>
         const produtos = [
-            { id: 1, nome: "Secador de Capacetes #CSC", preco: 95, categoria: "Auto & SimRacing", pasta: "Secador de Capacetes #CSC", fotos: ["ssc1.png","ssc2.png","ssc3.png","ssc4.png"], desc: "Secador de capacetes e luvas composto por 3 ventoinhas (uma de 120mm p/ capacete e duas de 60mm p/ luvas). Inclui botão de ligar/desligar e cabo de alimentação. Pode ser personalizada a cor do stand, número e nome. Tempo de entrega: 2 semanas." },
-            { id: 15, nome: "Secador de Capacetes e Luvas", preco: 95, categoria: "Auto & SimRacing", pasta: "Secador de Capacete e Luvas", fotos: ["scl1.png","scl2.png","scl3.png","scl4.png","scl5.png","scl6.png"], desc: "Secador de capacetes e luvas.<br><br>Composto com 3 ventoinhas, uma de 120mm para secar o capacete e duas de 60mm para secar as luvas.<br>Inclui também um botão para ligar e desligar as ventoinhas e o respetivo cabo de alimentação.<br><br>Pode ser escolhida a cor só stand (pés e base) e pode ser incluída uma personalização, por exemplo com número e nome.<br><br>Valor sem personalização: 85€<br>Valor com personalização: 95€<br><br>Tempo previsto desde a encomenda à entrega: duas semanas." },
-            { id: 2, nome: "Indicador SimRacing (RPM/Bandeiras)", preco: 30, categoria: "Auto & SimRacing", pasta: "Indicador de mudança bandeiras rpm Simracig", fotos: ["sim1.png","sim2.png","sim3.png","sim4.png"], desc: "Indicador de mudança, bandeiras e rotação (RPM).<br><br><strong>Compatibilidade:</strong> Assetto Corsa e Competizione, iRacing, rFactor 2, Project CARS 1 e 2, Automobilista 1 e 2, F1 Series (2020-24), Dirt Rally 1 e 2.0, Euro Truck/American Truck Sim, RaceRoom, BeamNG.drive, Forza Horizon 4 e 5, Gran Turismo 7, Live for Speed, WRC, KartKraft.<br><br><strong>Detalhes:</strong> Ligação Micro USB. Cores dos LEDs totalmente personalizáveis." },
-            { id: 3, nome: "Bola de Natal - Cão", preco: 2.5, categoria: "Natal", pasta: "Bola de Natal - Cão", fotos: ["au.png","auau.png"], desc: "Bola de natal em forma de patinha. Disponível versão com asinhas para homenagem. Personalizada com nome. Diâmetro: 8cm. Escolha a cor da fita." },
-            { id: 4, nome: "Bola de Natal - Gato", preco: 2.5, categoria: "Natal", pasta: "Bola de Natal - Gato", fotos: ["miau.png"], desc: "Bola de natal em forma de cabeça de gatinho. Disponível com asinhas. Personalizada com nome. Diâmetro: 8cm. Escolha a cor da fita." },
-            { id: 5, nome: "Bola de Natal - Melhor Auxiliar", preco: 2.5, categoria: "Natal", pasta: "Bola de Natal - Melhor Auxiliar", fotos: ["aux1.png","aux2.png"], desc: "Bola de natal para mimar os auxiliares. Personalizada com nome. Diâmetro: 8cm. Escolha a cor da fita." },
-            { id: 6, nome: "Bola de Natal - Professor(a)", preco: 2.5, categoria: "Natal", pasta: "Bola de Natal - Melhor Professor(a)", fotos: ["prof1.png","prof2.png"], desc: "Bola de natal para mimar os professores(as). Diâmetro: 8cm. Escolha a cor da fita." },
-            { id: 7, nome: "Bola de Natal - Educador(a)", preco: 2.5, categoria: "Natal", pasta: "Bola de Natal - Melhor Educador(a)", fotos: ["educa1.png","educa2.png"], desc: "Bola de Natal para o mimar os(as) Educadores(as) ! 🤍Escolha também a cor da fita para melhor condizer com a sua árvore de natal!Diametro de 8cm." },
-            { id: 8, nome: "Bola de Natal - Boas Festas", preco: 2.5, categoria: "Natal", pasta: "Bola Feliz Natal  Boas Festas", fotos: ["festa1.png","festa2.png"], desc: "Bola de Natal para quem não pode passar sem oferecer uma lembrança! 🤍Escolha também a cor da fita para melhor condizer com a sua árvore de natal!Diametro de 8cm." },
-            { id: 16, nome: "Bola de Natal Personalizada", preco: 2.5, categoria: "Natal", pasta: "Bola de Natal Personalizada", fotos: ["personal.png"], desc: "Bola de Natal personalizada.<br><br>Também disponível versão com asinhas para homenagear os entes queridos 🤍<br><br>Personalizada com um nome à escolha.<br>Escolha também a cor da fita para melhor condizer com a sua árvore de natal!<br><br>Diâmetro de 8cm." },
-            { id: 9, nome: "Bola com Fotografia", preco: 10, categoria: "Natal", pasta: "Bola com Fotografia", fotos: ["ft1.png","ft2.png","ft3.png"], desc: "Bola personalizada com fotografia à sua escolha. Iluminada através das luzes da sua árvore de Natal." },
-            { id: 10, nome: "Caixa de Memórias", preco: 35, categoria: "Decoração & Presentes", pasta: "Caixa de memórias", fotos: ["1.png","2.png"], desc: "Caixa de memórias que leva até 3 fotografias. É possível escolher a cor da armação." },
-            { id: 11, nome: "Nome Infinito", preco: 15, categoria: "Decoração & Presentes", pasta: "Nome infinito", fotos: ["nome_infinito.png"], desc: "Peça decorativa personalizável com nomes. Várias cores disponíveis." },
-            { id: 12, nome: "Base Monstera", preco: 10, categoria: "Decoração & Presentes", pasta: "Base coposvelas monsteras", fotos: ["base.png"], desc: "Conjunto composto por 4 folhas de monstera com base. Dimensão folha: 8cm x 10cm x 0,4cm. Dimensão base: 8,5cm x 10,5cm x 2,2cm." },
-            { id: 13, nome: "Vaso Caveira", preco: 12, categoria: "Decoração & Presentes", pasta: "Caveiras vaso", fotos: ["cav1.png","cav2.png"], desc: "Vaso decorativo para plantas ou para guardar chaves. Disponível em várias cores." },
-            { id: 14, nome: "Luminária NameLed", preco: 30, categoria: "Decoração & Presentes", pasta: "NameLed", fotos: ["nl1.png","nl2.png"], desc: "Luminária personalizada com iluminação LED controlável com comando remoto. Permite até quatro cores diferentes. Dimensão máxima: 25cm x 25cm." }
+            { id: 1, nome: "Secador de Capacetes #CSC", preco: 95, categoria: "Auto & SimRacing", pasta: "Secador de Capacetes #CSC", fotos: ["ssc1.png","ssc2.png","ssc3.png","ssc4.png"], personalizacao: [ {label:"Cor do stand (pés e base)", placeholder:"ex: preto"}, {label:"Personalização (nome e/ou número)", placeholder:"ex: João, nº 7"} ], desc: "Secador de capacetes e luvas composto por 3 ventoinhas (uma de 120mm p/ capacete e duas de 60mm p/ luvas). Inclui botão de ligar/desligar e cabo de alimentação. Pode ser personalizada a cor do stand, número e nome. Tempo de entrega: 2 semanas." },
+            { id: 15, nome: "Secador de Capacetes e Luvas", preco: 95, categoria: "Auto & SimRacing", pasta: "Secador de Capacete e Luvas", fotos: ["scl1.png","scl2.png","scl3.png","scl4.png","scl5.png","scl6.png"], personalizacao: [ {label:"Cor do stand (pés e base)", placeholder:"ex: preto"}, {label:"Personalização (nome e/ou número)", placeholder:"ex: João, nº 7"} ], desc: "Secador de capacetes e luvas.<br><br>Composto com 3 ventoinhas, uma de 120mm para secar o capacete e duas de 60mm para secar as luvas.<br>Inclui também um botão para ligar e desligar as ventoinhas e o respetivo cabo de alimentação.<br><br>Pode ser escolhida a cor só stand (pés e base) e pode ser incluída uma personalização, por exemplo com número e nome.<br><br>Valor sem personalização: 85€<br>Valor com personalização: 95€<br><br>Tempo previsto desde a encomenda à entrega: duas semanas." },
+            { id: 2, nome: "Indicador SimRacing (RPM/Bandeiras)", preco: 30, categoria: "Auto & SimRacing", pasta: "Indicador de mudança bandeiras rpm Simracig", fotos: ["sim1.png","sim2.png","sim3.png","sim4.png"], personalizacao: [ {label:"Cor dos LEDs", placeholder:"ex: azul e vermelho"} ], desc: "Indicador de mudança, bandeiras e rotação (RPM).<br><br><strong>Compatibilidade:</strong> Assetto Corsa e Competizione, iRacing, rFactor 2, Project CARS 1 e 2, Automobilista 1 e 2, F1 Series (2020-24), Dirt Rally 1 e 2.0, Euro Truck/American Truck Sim, RaceRoom, BeamNG.drive, Forza Horizon 4 e 5, Gran Turismo 7, Live for Speed, WRC, KartKraft.<br><br><strong>Detalhes:</strong> Ligação Micro USB. Cores dos LEDs totalmente personalizáveis." },
+            { id: 3, nome: "Bola de Natal - Cão", preco: 2.5, categoria: "Natal", pasta: "Bola de Natal - Cão", fotos: ["au.png","auau.png"], personalizacao: [ {label:"Nome", placeholder:"ex: Rex"}, {label:"Cor da fita", placeholder:"ex: vermelha"} ], desc: "Bola de natal em forma de patinha. Disponível versão com asinhas para homenagem. Personalizada com nome. Diâmetro: 8cm. Escolha a cor da fita." },
+            { id: 4, nome: "Bola de Natal - Gato", preco: 2.5, categoria: "Natal", pasta: "Bola de Natal - Gato", fotos: ["miau.png"], personalizacao: [ {label:"Nome", placeholder:"ex: Mimi"}, {label:"Cor da fita", placeholder:"ex: vermelha"} ], desc: "Bola de natal em forma de cabeça de gatinho. Disponível com asinhas. Personalizada com nome. Diâmetro: 8cm. Escolha a cor da fita." },
+            { id: 5, nome: "Bola de Natal - Melhor Auxiliar", preco: 2.5, categoria: "Natal", pasta: "Bola de Natal - Melhor Auxiliar", fotos: ["aux1.png","aux2.png"], personalizacao: [ {label:"Nome", placeholder:"ex: Ana"}, {label:"Cor da fita", placeholder:"ex: dourada"} ], desc: "Bola de natal para mimar os auxiliares. Personalizada com nome. Diâmetro: 8cm. Escolha a cor da fita." },
+            { id: 6, nome: "Bola de Natal - Professor(a)", preco: 2.5, categoria: "Natal", pasta: "Bola de Natal - Melhor Professor(a)", fotos: ["prof1.png","prof2.png"], personalizacao: [ {label:"Cor da fita", placeholder:"ex: verde"} ], desc: "Bola de natal para mimar os professores(as). Diâmetro: 8cm. Escolha a cor da fita." },
+            { id: 7, nome: "Bola de Natal - Educador(a)", preco: 2.5, categoria: "Natal", pasta: "Bola de Natal - Melhor Educador(a)", fotos: ["educa1.png","educa2.png"], personalizacao: [ {label:"Cor da fita", placeholder:"ex: verde"} ], desc: "Bola de Natal para o mimar os(as) Educadores(as) ! 🤍Escolha também a cor da fita para melhor condizer com a sua árvore de natal!Diametro de 8cm." },
+            { id: 8, nome: "Bola de Natal - Boas Festas", preco: 2.5, categoria: "Natal", pasta: "Bola Feliz Natal  Boas Festas", fotos: ["festa1.png","festa2.png"], personalizacao: [ {label:"Cor da fita", placeholder:"ex: vermelha"} ], desc: "Bola de Natal para quem não pode passar sem oferecer uma lembrança! 🤍Escolha também a cor da fita para melhor condizer com a sua árvore de natal!Diametro de 8cm." },
+            { id: 16, nome: "Bola de Natal Personalizada", preco: 2.5, categoria: "Natal", pasta: "Bola de Natal Personalizada", fotos: ["personal.png"], personalizacao: [ {label:"Nome", placeholder:"ex: Solange"}, {label:"Cor da fita", placeholder:"ex: vermelha"} ], desc: "Bola de Natal personalizada.<br><br>Também disponível versão com asinhas para homenagear os entes queridos 🤍<br><br>Personalizada com um nome à escolha.<br>Escolha também a cor da fita para melhor condizer com a sua árvore de natal!<br><br>Diâmetro de 8cm." },
+            { id: 9, nome: "Bola com Fotografia", preco: 10, categoria: "Natal", pasta: "Bola com Fotografia", fotos: ["ft1.png","ft2.png","ft3.png"], personalizacao: [ {label:"Detalhes da fotografia (envia a foto depois por WhatsApp)", placeholder:"ex: foto de família de Natal"} ], desc: "Bola personalizada com fotografia à sua escolha. Iluminada através das luzes da sua árvore de Natal." },
+            { id: 10, nome: "Caixa de Memórias", preco: 35, categoria: "Decoração & Presentes", pasta: "Caixa de memórias", fotos: ["1.png","2.png"], personalizacao: [ {label:"Cor da armação", placeholder:"ex: natural"}, {label:"Detalhes das fotografias (até 3, envia depois por WhatsApp)", placeholder:"ex: fotos de família"} ], desc: "Caixa de memórias que leva até 3 fotografias. É possível escolher a cor da armação." },
+            { id: 11, nome: "Nome Infinito", preco: 15, categoria: "Decoração & Presentes", pasta: "Nome infinito", fotos: ["nome_infinito.png"], personalizacao: [ {label:"Nome", placeholder:"ex: Marta & João"}, {label:"Cor", placeholder:"ex: dourado"} ], desc: "Peça decorativa personalizável com nomes. Várias cores disponíveis." },
+            { id: 12, nome: "Base Monstera", preco: 10, categoria: "Decoração & Presentes", pasta: "Base coposvelas monsteras", fotos: ["base.png"], personalizacao: [], desc: "Conjunto composto por 4 folhas de monstera com base. Dimensão folha: 8cm x 10cm x 0,4cm. Dimensão base: 8,5cm x 10,5cm x 2,2cm." },
+            { id: 13, nome: "Vaso Caveira", preco: 12, categoria: "Decoração & Presentes", pasta: "Caveiras vaso", fotos: ["cav1.png","cav2.png"], personalizacao: [ {label:"Cor", placeholder:"ex: preto"} ], desc: "Vaso decorativo para plantas ou para guardar chaves. Disponível em várias cores." },
+            { id: 14, nome: "Luminária NameLed", preco: 30, categoria: "Decoração & Presentes", pasta: "NameLed", fotos: ["nl1.png","nl2.png"], personalizacao: [ {label:"Nome", placeholder:"ex: Beatriz"}, {label:"Cor(es) LED", placeholder:"ex: azul e branco"} ], desc: "Luminária personalizada com iluminação LED controlável com comando remoto. Permite até quatro cores diferentes. Dimensão máxima: 25cm x 25cm." }
         ];
 
         function caminhoFoto(produto, nomeFicheiro) {
@@ -306,17 +306,15 @@
                     </div>
                 </div>
 
+                ${p.personalizacao && p.personalizacao.length ? `
                 <div class="mb-4">
                     <p class="text-sm text-gray-400 mb-3">Preenche os detalhes da tua personalização:</p>
-
-                    <label class="text-xs font-bold text-gray-400 mb-2 block">Cor do stand (pés e base)</label>
-                    <input type="text" id="obs-cor" placeholder="ex: preto"
-                        class="w-full bg-[#0a0a0a] border border-white/10 rounded-xl p-3 text-sm text-white placeholder:text-gray-600 mb-4">
-
-                    <label class="text-xs font-bold text-gray-400 mb-2 block">Personalização (nome e/ou número)</label>
-                    <input type="text" id="obs-nome" placeholder="ex: João, nº 7"
-                        class="w-full bg-[#0a0a0a] border border-white/10 rounded-xl p-3 text-sm text-white placeholder:text-gray-600">
+                    ${p.personalizacao.map(campo => `
+                        <label class="text-xs font-bold text-gray-400 mb-2 block">${campo.label}</label>
+                        <input type="text" class="personaliza-input w-full bg-[#0a0a0a] border border-white/10 rounded-xl p-3 text-sm text-white placeholder:text-gray-600 mb-4" data-label="${campo.label}" placeholder="${campo.placeholder}">
+                    `).join('')}
                 </div>
+                ` : ''}
 
                 <button onclick="adicionar(${p.id})" class="w-full bg-white text-black py-4 rounded-xl font-bold hover:bg-gray-200 transition">ADICIONAR AO CARRINHO</button>
             `;
@@ -372,19 +370,21 @@
 
         function adicionar(id) {
             const prod = produtos.find(p => p.id === id);
-            const corInput = document.getElementById('obs-cor');
-            const nomeInput = document.getElementById('obs-nome');
-            const cor = corInput ? corInput.value.trim() : '';
-            const nome = nomeInput ? nomeInput.value.trim() : '';
+            const inputs = document.querySelectorAll('#modal-content .personaliza-input');
 
-            if (!cor && !nome) {
-                [corInput, nomeInput].forEach(el => el && el.classList.add('border-orange-500'));
+            const partes = [];
+            let algumPreenchido = false;
+            inputs.forEach(inp => {
+                const val = inp.value.trim();
+                inp.classList.remove('border-orange-500');
+                if (val) { algumPreenchido = true; partes.push(`${inp.dataset.label}: ${val}`); }
+            });
+
+            if (inputs.length > 0 && !algumPreenchido) {
+                inputs.forEach(inp => inp.classList.add('border-orange-500'));
                 return;
             }
 
-            const partes = [];
-            if (cor) partes.push(`Cor: ${cor}`);
-            if (nome) partes.push(`Personalização: ${nome}`);
             const obs = partes.join(' | ');
 
             carrinho.push({ ...prod, obs, qtd: quantidadeAtual });
@@ -398,7 +398,7 @@
             document.getElementById('total-final').innerText = total.toFixed(2) + "€";
             document.getElementById('lista-carrinho').innerHTML = carrinho.map((i, index) => `
                 <div class="flex justify-between items-center text-sm border-b border-white/5 pb-3">
-                    <div><p class="font-bold text-white">${i.nome} <span class="text-gray-400 font-normal">x${i.qtd}</span></p><p class="text-orange-500">${i.obs}</p></div>
+                    <div><p class="font-bold text-white">${i.nome} <span class="text-gray-400 font-normal">x${i.qtd}</span></p>${i.obs ? `<p class="text-orange-500">${i.obs}</p>` : ''}</div>
                     <div class="text-right font-bold">${(i.preco * i.qtd).toFixed(2)}€ <button onclick="carrinho.splice(${index},1); atualizarCarrinho(); document.getElementById('count').innerText = carrinho.reduce((s,x)=>s+x.qtd,0);" class="text-gray-600 ml-3">X</button></div>
                 </div>
             `).join('');
@@ -408,7 +408,7 @@
             const n = document.getElementById('nomeCliente').value;
             if(!n) { alert("Nome obrigatório!"); return; }
             let msg = `Olá! Encomenda de ${n}:%0A`;
-            carrinho.forEach(i => msg += `- ${i.nome} x${i.qtd} (${i.obs}) - ${(i.preco * i.qtd).toFixed(2)}€%0A`);
+            carrinho.forEach(i => msg += `- ${i.nome} x${i.qtd}${i.obs ? ` (${i.obs})` : ''} - ${(i.preco * i.qtd).toFixed(2)}€%0A`);
             msg += `%0ATOTAL: ${document.getElementById('total-final').innerText}`;
 
             const url = `https://wa.me/351215959525?text=${msg}`;
